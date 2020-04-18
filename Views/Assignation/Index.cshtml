@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WhoIsWho.Models.Assignation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <script>
+        var currentTable = "";
+        var gameReady = false;
+        $.ajax({
+              url: '@Url.Action("isGameStarted", "Assignation")',
+              type: 'post',
+              success: function (result) {
+                  if (result == "True") {
+                      gameReady = true;
+                      $("#startButton")[0].style = "display: none;";
+                  }
+              }
+          });
+        setInterval(function () {
+            $.ajax({
+                url: '@Url.Action("GetAssignations", "Assignation")',
+                type: "post",
+                success: function (result) {
+                    if (currentTable != result) {
+                        currentTable = result;
+                        $("#grid").html(result);
+                    }
+                }
+            });
+
+            if (!gameReady) {
+                $.ajax({
+                    url: '@Url.Action("isGameStarted", "Assignation")',
+                    type: 'post',
+                    success: function (result) {
+                        if (result == "True") {
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+        }, 5000);
+
+        function tryToStart() {
+            $("#startButton").prop('disabled', true);
+            $("#startButton")[0].style = "display: none;";
+           $.ajax({
+            url: '@Url.Action("TryToStart", "Assignation")',
+            type: "post",
+            success: function (result) {
+               // Game Started!
+            }
+           });
+        }
+
+    function loadPerson(personId, character = "") {
+        $.ajax({
+            url: '@Url.Action("Details", "People")',
+            method: 'POST',
+            data: { id: personId}
+        }).done(function (result) {
+            if (result) {
+                var div = document.getElementById("div_" + personId);
+                div.innerHTML = '<div>'+character+'</div><img id="image" src=' + result.Picture + ' style="width: 100px; height: 100px" />';
+            }
+        });
+    }
+    </script>
+
+    <div id="grid">
+        @Html.Partial("GetAssignations", Model)
+    </div>
+
+    <input type="button" id="startButton" value="Estoy Listo" onclick="tryToStart()" />

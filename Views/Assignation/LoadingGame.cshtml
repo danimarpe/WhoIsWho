@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Esperando por otros jugadores";
+}
+
+<h2>Esperando a que alguien entre al juego...</h2>
+
+<script>
+    setInterval(function () {
+        $.ajax({
+            url: '@Url.Action("isGameStarted", "Assignation")',
+            method: 'POST'
+        }).done(function (result) {
+            if (result == "True") {
+                window.location.href = '@Url.Action("Go", "Assignation")';
+            }
+        });
+    }, 3000);
+
+</script>
+

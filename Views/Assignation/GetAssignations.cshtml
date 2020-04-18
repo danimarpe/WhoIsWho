@@ -1,0 +1,21 @@
+﻿@model IEnumerable<WhoIsWho.Models.Assignation>
+<table class="table">
+    <tbody>
+        @foreach (var group in Model.Select((e, i) => new { Assignation = e, Grouping = (i / 2) }).GroupBy(e => e.Grouping))
+        {
+            <tr>
+                @foreach (var assignation in group.Select(x => x.Assignation))
+                {
+                    <td>
+                        <div class="col-md-6 col-xs-6 small" id="div_@assignation.AssignedID">
+                            <script>
+                            loadPerson(@assignation.AssignedID, "@assignation.Character");
+                            </script>
+                        </div>
+                    </td>
+                }
+            </tr>
+        }
+
+    <tbody>
+</table>

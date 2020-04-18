@@ -1,0 +1,52 @@
+﻿@model WhoIsWho.Models.Assignation
+
+@{
+    ViewBag.Title = "Asigna un personaje";
+}
+
+<h2 id="head2">Te ha tocado </h2>
+<img id="image" style="width: 100px; height: 100px" />
+@using (Html.BeginForm("SetCharacter", "Assignation", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4 id="head4">Escribe qué personaje quieres que sea </h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Character, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Character, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Character, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="SetCharacter" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    $.ajax({
+            url: '@Url.Action("Details", "People")',
+           method: 'POST',
+           data: {id: @Model.AssignedID}
+        }).done(function (result) {
+            if (result) {
+                var head2 = document.getElementById("head2");
+                var head4 = document.getElementById("head4");
+                var image = document.getElementById("image");
+                head2.textContent = 'Te ha tocado ' + result.Name;
+                head4.textContent = 'Escribe qué personaje quieres que sea ' + result.Name;
+                image.src = result.Picture;
+            }
+        });
+</script>

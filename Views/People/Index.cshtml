@@ -1,0 +1,28 @@
+﻿@model IEnumerable<WhoIsWho.Models.Person>
+
+@{
+    ViewBag.Title = "¿Quién eres?";
+}
+
+<h2>¿Quién eres?</h2>
+
+<table class="table-responsive">
+    <tbody>
+        @foreach (var group in Model.Select((e, i) => new { Person = e, Grouping = (i / 2) }).GroupBy(e => e.Grouping))
+        {
+            <tr>
+                @foreach (var person in group.Select(x => x.Person))
+                {
+                <td>
+                    <a href='@Url.Action("Go", "Assignation", new { idAssigner = person.ID })'>
+                        <img src=@person.Picture style="width: 100px; height: 100px" />
+                    </a>
+                    <div class="col-md-6 col-xs-6 small">
+                        @person.Name
+                    </div>
+                </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
