@@ -5,31 +5,39 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Game</h4>
+    <h4>Partida creada</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Ready)
-        </dt>
+        <p>
+            Comparte este enlace con tus amigos para que se unan a la partida.
+        </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Ready)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Started)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Started)
-        </dd>
+        <p>
+            <input type="text" value="http://whoiswho.azurewebsites.net/people/index?idGame=@Model.ID" readonly id="link">
+            <button onclick="copy()">Copiar enlace</button>
+        </p>
 
     </dl>
 </div>
+<h3><a href="http://whoiswho.azurewebsites.net/people/index?idGame=@Model.ID">Ir a la partida</a></h3>
+<hr />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Ver las partidas en curso", "Index")
 </p>
+<script>
+    function copy() {
+        /* Get the text field */
+        var copyText = document.getElementById("link");
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+
+        /* Alert the copied text */
+        alert("Enlace copiado: " + copyText.value);
+    }
+</script>

@@ -152,6 +152,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005111113046_NamGame.cs" />
+    <Compile Include="Migrations\202005111113046_NamGame.Designer.cs">
+      <DependentUpon>202005111113046_NamGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005151001139_Gam.cs" />
+    <Compile Include="Migrations\202005151001139_Gam.Designer.cs">
+      <DependentUpon>202005151001139_Gam.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Assignation.cs" />
     <Compile Include="Models\Game.cs" />
@@ -250,6 +258,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202005111113046_NamGame.resx">
+      <DependentUpon>202005111113046_NamGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005151001139_Gam.resx">
+      <DependentUpon>202005151001139_Gam.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

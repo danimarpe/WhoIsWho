@@ -52,7 +52,7 @@ namespace WhoIsWho.Controllers
             {
                 db.Games.Add(game);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = game.ID });
             }
 
             return View(game);

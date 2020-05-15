@@ -12,19 +12,28 @@
     <div class="navbar navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                @Html.ActionLink("WhoIsWho", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("WhoIsWho", "Create", "Games", new { area = "" }, new { @class = "navbar-brand" })
             </div>
         </div>
     </div>
     <div class="container body-content">
-        @RenderBody()
+        <div class="row d-flex justify-content-center">
+
+            <!--Grid column-->
+            <div class="col-md-6">
+
+                @RenderBody()
+
+            </div>
+            <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
         <hr />
         <footer>
         </footer>
     </div>
-
-
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 </body>
 </html>

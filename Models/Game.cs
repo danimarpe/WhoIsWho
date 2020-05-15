@@ -10,5 +10,6 @@ namespace WhoIsWho.Models
         public Boolean Ready { get; set; }
         public Boolean Started { get; set; }
         public int PlayersReady { get; set; }
+        public string Name { get; set; }
     }
 }
